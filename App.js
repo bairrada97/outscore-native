@@ -41,7 +41,9 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
+  const INJECTED_JAVASCRIPT = `(function() {
+    window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
+})();`;
   return (
     <>
       <View
@@ -73,6 +75,7 @@ export default function App() {
         source={{
           uri: "https://outscore.live",
         }}
+        injectedJavaScript={INJECTED_JAVASCRIPT}
         onMessage={(event) => {
           console.log(event);
         }}
